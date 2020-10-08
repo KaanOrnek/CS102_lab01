@@ -1,0 +1,156 @@
+/*Design and implement a class, IntBag, that allows a variable-sized collection of non-negative integer values 
+ * to be stored. Your class should have a single property, an int array called bag that will hold the values of the collection. 
+ * The values themselves must be stored contiguously starting from the beginning of the array. The last value is followed by a
+ * negative (sentinel) value. The class should have one constructor which creates an empty collection (with room for up to 4 values).
+ * Provide methods to add a value to the end of the collection and to add a value at a particular index location i within it 
+ * (moving other values "up" to make room, after checking i is within bounds). If there is no room for another value, the array
+ * should expand so that its size is doubled. 
+ * 
+ * 
+ * Also, write methods to remove the value at a given index (placing the last element
+ * of the array into that index) and another to test whether the collection contains a given value or not. Provide a toString
+ * method that returns a String representation of the collection, a method, size, that returns the number of values currently 
+ * in the collection, and finally, a method that will allow you to get the value at location i within the collection.
+ */ 
+
+/*
+ * CS102-Section:1 -  1st Lab Assignment
+ * Mehmet Kaan Örnek
+ * 07.10.2020
+ * A class that allows user to collect non-negative integers and to put them in a desired order.
+ */ 
+
+public class IntBag {
+   
+   //properties
+   
+   public int[] bag;
+   public final int INITIAL_SIZE = 4;
+   public final int SENTINAL_VALUE = -1;
+   
+   
+   //constructor
+   
+   public IntBag() {
+      bag = new int[INITIAL_SIZE];
+      bag[0] = SENTINAL_VALUE;
+   }
+   
+   
+   //methods
+   
+   public int getMaxSize(){
+      return bag.length;
+   }
+   
+   
+   public int getCurrentSize(){
+      int currentSize = 0;
+      
+      for( int i = 0; i < this.getMaxSize(); i++ ){
+         if( bag[i] == SENTINAL_VALUE )
+            currentSize = i + 1;
+      }
+      return currentSize;
+   }
+   
+   
+   public int getValueOfIndex( int index ){
+      return bag[index];
+   }
+   
+   public void expand(){
+      int[] expandedBag = new int[ 2 * this.getMaxSize() ];
+      
+      for( int i = 0; i < this.getMaxSize(); i++ ){
+         expandedBag[i] = bag[i];
+      }
+      bag = expandedBag;
+   }
+   
+   
+   public void add( int value ) {
+      int a = this.getCurrentSize();
+      
+      if( this.getCurrentSize() < this.getMaxSize() ){
+         bag[ a-1 ] = value;
+         bag[ a ] = SENTINAL_VALUE;
+      }
+      else {
+         this.expand();
+         this.add( value );
+      }
+   }
+   
+   
+   public void add( int value, int index ) {
+      int size = this.getCurrentSize();
+      
+      if( this.getCurrentSize() < this.getMaxSize() && index < this.getCurrentSize() ){
+         for( int i = size; i > index; i-- ) {
+            System.out.println( i + "=i" );
+            bag[i] = bag[i-1];
+            if( i-1 == index ){
+               bag[index] = value;
+            }
+         }
+      }
+      
+      else if ( this.getCurrentSize() == this.getMaxSize() && index < this.getCurrentSize() ) {
+         this.expand();
+         this.add( value, index );
+      }
+      
+      else {
+         System.out.println( "Desired index does not exist." );
+      }
+   }
+   
+   
+   public void remove( int index ){
+      int size = getCurrentSize();
+      
+      if( index < size-1 || this.getCurrentSize()>1){
+         bag[index] = bag[size-2];
+         bag[size-2] = SENTINAL_VALUE;
+         bag[size-1] = bag[size];
+      }
+      else {
+         System.out.println( "Desired index does not exist" );
+      }
+      
+   }
+   
+   
+   public boolean doesBagHas( int value ){
+      
+      for( int i = 0; i< this.getCurrentSize()-1; i++ ){
+         if( bag[i] == value )
+            return true;
+      }
+      return false;
+   }
+   
+   
+   public void removeAll( int value ){
+      int size = getCurrentSize();
+      
+      for( int i = 0; i < size; i++ ){
+         if( bag[i] == value ){
+            this.remove(i);
+            i--;
+         }
+      }
+   }
+   
+   
+   public String toString(){
+      String representation = "";
+      
+      for( int i = 0; i < this.getCurrentSize()-1 ; i++ ){
+         representation += bag[i] + ", ";
+      }
+      return "[ " + representation + SENTINAL_VALUE + " ]";
+   }
+   
+}
