@@ -91,7 +91,6 @@ public class IntBag {
       
       if( this.getCurrentSize() < this.getMaxSize() && index < this.getCurrentSize() ){
          for( int i = size; i > index; i-- ) {
-            System.out.println( i + "=i" );
             bag[i] = bag[i-1];
             if( i-1 == index ){
                bag[index] = value;
