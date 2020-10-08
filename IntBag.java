@@ -24,11 +24,16 @@ public class IntBag {
    
    //methods
    
+   /*
+    * @return an integer which is the maximum size of the bag can get before expanding.
+    */
    public int getMaxSize(){
       return bag.length;
    }
    
-   
+   /*
+    * @return an integer which is the current size of the bag.
+    */
    public int getCurrentSize(){
       int currentSize = 0;
       
@@ -39,11 +44,17 @@ public class IntBag {
       return currentSize;
    }
    
-   
+   /*
+    * @param int index - the index whose value is wanted to be found.
+    * @return an integer that is the value on the desired index.
+    */
    public int getValueOfIndex( int index ){
       return bag[index];
    }
    
+   /*
+    * Expands the array by doubling its max size.
+    */
    public void expand(){
       int[] expandedBag = new int[ 2 * this.getMaxSize() ];
       
@@ -53,7 +64,10 @@ public class IntBag {
       bag = expandedBag;
    }
    
-   
+   /*
+    * Adds the given value to the end of the bag.
+    * @param int value - the value desired to be added.
+    */
    public void add( int value ) {
       int a = this.getCurrentSize();
       
@@ -67,7 +81,11 @@ public class IntBag {
       }
    }
    
-   
+   /*
+    * Adds the given value to the specific index.
+    * @param int value - the value desired to be added.
+    * @param int index - the index that the value is wanted to be on
+    */
    public void add( int value, int index ) {
       int size = this.getCurrentSize();
       
@@ -91,7 +109,10 @@ public class IntBag {
       }
    }
    
-   
+   /*
+    * Removes the value of the given index.
+    * @param int index - the index whose value is wanted to be removed.
+    */
    public void remove( int index ){
       int size = getCurrentSize();
       
@@ -106,7 +127,12 @@ public class IntBag {
       
    }
    
-   
+   /*
+    * Controls if the bag has the given value or not.
+    * @param int value - the value that will be checked.
+    * @return true if the bag has the given value.
+    * @return false if the bag doesn't have the given value.
+    */
    public boolean doesBagHas( int value ){
       
       for( int i = 0; i< this.getCurrentSize()-1; i++ ){
@@ -117,6 +143,10 @@ public class IntBag {
    }
    
    
+   /*
+    * Removes all the given value in the bag.
+    * @param int value - the value that is wanted to be removed.
+    */
    public void removeAll( int value ){
       int size = getCurrentSize();
       
@@ -128,7 +158,9 @@ public class IntBag {
       }
    }
    
-   
+   /*
+    * @return the String representation of the bag.
+    */
    public String toString(){
       String representation = "";
       
